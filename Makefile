@@ -1,22 +1,16 @@
-ifeq ($(CROSS_CC),1)
-	export ARCH:=arm
-	export CROSS_COMPILE:=arm-linux-gnueabihf-
+ccflags-y += -fno-stack-protector -Wno-error
+obj-m := zynqmp-fpga-fmod.o
 
-	CC=$(CROSS_COMPILE)gcc
-	KDIR := /home/marco/xil_linux/linux-xlnx-xilinx-v2019.2.01-arm
-else
-	KDIR := /lib/modules/`uname -r`/build
-endif
+SRC := $(shell pwd)
+KERNEL_SRC ?= /lib/modules/`uname -r`/build
 
-# Temporary fix for building this module with older versions of GCC
-ccflags-y += -fno-stack-protector
+all:
+	$(MAKE) -C $(KERNEL_SRC) M=$(SRC)
 
-ccflags-y += -DDEBUG -Wall
-obj-m += zynqmp-fpga-fmod.o
-
-default:
-	${MAKE} -C ${KDIR} -I ${KDIR}/include M=`pwd` modules
+modules_install:
+	$(MAKE) -C $(KERNEL_SRC) M=$(SRC) modules_install
 
 clean:
-	${MAKE} -C ${KDIR} -I ${KDIR}/include M=`pwd` clean
-
+	rm -f *.o *~ core .depend .*.cmd *.ko *.mod.c
+	rm -f Module.markers Module.symvers modules.order
+	rm -rf .tmp_versions Modules.symvers
