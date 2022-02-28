@@ -1,5 +1,3 @@
-
-This is a modified version of [FPGA Manager driver](https://www.kernel.org/doc/html/latest/driver-api/fpga/fpga-mgr.html), part of the [FRED Framework software stack](https://fred-framework-docs.readthedocs.io/en/latest/index.html). 
+This repository hosts a modified version of Xilinx's Zynq UltraScale+ FPGA driver, part of the [FRED Framework software stack](https://fred-framework-docs.readthedocs.io/en/latest/index.html). The driver has been extended for supporting I/O multiplexing and the direct load of contiguous bitstream images for userspace. These new functionalities are implemented through four `sysfs` attributes. The first two attributes are used for passing a reference to a contiguous bitstream image to the driver. The third attribute is used for starting the reconfiguration. Once the reconfiguration is started, the fourth attribute can be monitored through `poll()` or `epoll()` syscalls to receive a notification when the reconfiguration is completed. Please note that this driver is intended to be used only for testing and scientific purposes.
 
 [![](https://github.com/fred-framework/fred-docs/raw/main/docs/images/fred-sw-stack.png)](https://fred-framework-docs.readthedocs.io/en/latest/index.html)
-
