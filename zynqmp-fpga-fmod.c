@@ -15,6 +15,18 @@
 #include <linux/firmware/xlnx-zynqmp.h>
 
 /*---------------------------------- FMOD ------------------------------------*/
+// Some linux version tracking information:
+// This is the current Petalinux/Vivado version we are working:
+// https://github.com/Xilinx/linux-xlnx/blob/release-2020.2.2_k26/include/linux/firmware/xlnx-zynqmp.h
+// https://github.com/Xilinx/linux-xlnx/tree/release-2020.2.2_k26/drivers/firmware/xilinx
+
+// Apparently this Xilinx-based linux version is the 1st one that resembles this source code, implying that
+// FRED should work w any Petalinux/Vivado version 2018.3 or newer
+// https://github.com/Xilinx/linux-xlnx/blob/xlnx_rebase_v4.14_2018.3/drivers/fpga/zynqmp-fpga.c
+
+// Considering non-xilinx Linux distribution, the 1st Linux kernel version w this file is 
+// https://elixir.bootlin.com/linux/v5.2-rc1/source/drivers/fpga/zynqmp-fpga.c
+// Thus, for instance, V5.1 and older versions dont have this file
 #include <linux/kthread.h>
 #include <linux/completion.h>
 
